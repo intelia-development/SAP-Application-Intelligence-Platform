@@ -39,7 +39,7 @@ export class TelemetryService {
 
     // Get extension version
     this.version =
-      vscode.extensions.getExtension("murbani.vscode-abap-remote-fs")?.packageJSON?.version ||
+      vscode.extensions.getExtension("intelia-development.intelia-sap-application-intelligence-platform")?.packageJSON?.version ||
       "unknown"
 
     // Setup telemetry directory
