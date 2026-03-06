@@ -1,9 +1,9 @@
 {
-  "name": "vscode-abap-remote-fs",
-  "displayName": "ABAP remote filesystem",
-  "description": "Work on your ABAP code straight from the server",
-  "version": "2.0.4",
-  "publisher": "murbani",
+  "name": "intelia-sap-application-intelligence-platform",
+  "displayName": "INTELIA: SAP Application Intelligence Platform",
+  "description": "INTELIA is an AI-powered platform that provides deep insights into SAP systems, enabling users to analyze, optimize, and automate their SAP applications. With features like ABAP code analysis, performance monitoring, and intelligent automation, INTELIA helps organizations unlock the full potential of their SAP investments while reducing costs and improving efficiency.",
+  "version": "1.0.0",
+  "publisher": "intelia-development",
   "publishConfig": {
     "access": "restricted",
     "registry": "http://localhost/fake"
@@ -11,10 +11,10 @@
   "license": "MIT",
   "icon": "client/images/abapfs_logo.png",
   "author": {
-    "email": "marcello.urbani@gmail.com",
-    "name": "Marcello Urbani"
+    "email": "sebastjan.havlicekandric@intelia.si",
+    "name": "Sebastjan Havlicek Andric"
   },
-  "homepage": "https://github.com/marcellourbani/vscode_abap_remote_fs",
+  "homepage": "https://intelia.si",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/marcellourbani/vscode_abap_remote_fs.git"
+    "url": "https://github.com/intelia-development/SAP-Application-Intelligence-Platform.git"
   },
   "keywords": [
     "ABAP",
@@ -33,7 +33,10 @@
     "copilot",
     "embedded-gui",
     "sap-gui",
-    "automation"
+    "automation",
+    "intelia",
+    "SAP-Application-Intelligence-Platform",
+    "abap-agentic-ai"
   ],
   "extensionDependencies": [
     "larshp.vscode-abap",
@@ -148,14 +151,14 @@
       "activitybar": [
         {
           "id": "abapfs",
-          "title": "Abap FS",
+          "title": "INTELIA: SAP-Application-Intelligence-Platform",
           "icon": "client/images/abapfs_activitybar.svg"
         }
       ],
       "panel": [
         {
           "id": "abapfsPanel",
-          "title": "ABAP FS",
+          "title": "INTELIA: SAP-Application-Intelligence-Platform",
           "icon": "${book}"
         }
       ]
@@ -2249,128 +2252,129 @@
       {
         "command": "abapfs.openHeartbeatJson",
         "title": "Open Heartbeat Watchlist",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(heart)"
       },
       {
         "command": "abapfs.showCopilotLogs",
         "title": "Show ABAP FS Logs",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.clearCopilotLogs",
         "title": "Clear ABAP FS Logs",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.listAdtFeeds",
         "title": "List Available ADT Feeds",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(rss)"
       },
       {
         "command": "abapfs.configureFeeds",
         "title": "Configure Feeds",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(settings-gear)"
       },
       {
         "command": "abapfs.refreshFeedInbox",
         "title": "Refresh Feed Inbox",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(refresh)"
       },
       {
         "command": "abapfs.markAllFeedsRead",
         "title": "Mark All Feed Entries as Read",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(check-all)"
       },
       {
         "command": "abapfs.markFeedFolderRead",
         "title": "Mark Feed Folder as Read",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(check)"
       },
       {
         "command": "abapfs.deleteFeedEntry",
         "title": "Delete Feed Entry",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(trash)"
       },
       {
         "command": "abapfs.clearFeedFolder",
         "title": "Clear Feed Folder",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(clear-all)"
       },
       {
         "command": "abapfs.connect",
         "title": "Connect to an ABAP system",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.disconnect",
         "title": "Disconnect from all ABAP systems",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.connectionManager",
         "title": "Connection Manager",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.search",
         "title": "ABAP Search for object",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.refreshSystemInfoCache",
         "title": "Refresh SAP System Info Cache",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(refresh)"
       },
       {
         "command": "abapfs.compareWithOtherSystem",
         "title": "ABAP Compare With another SAP System",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(diff)"
       },
       {
         "command": "abapfs.exportToJson",
         "title": "Export to JSON (clipboard)",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.create",
         "title": "ABAP Create object",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.createtestinclude",
         "title": "ABAP Create test class include",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.unittest",
         "title": "Run ABAP Unit Tests",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(beaker)"
       },
       {
         "command": "abapfs.addfavourite",
         "title": "ABAP Add favourite",
+        "category": "INTELIA SAP AIP",
         "icon": "$(add)"
       },
       {
         "command": "abapfs.runClass",
         "title": "ABAP Run console application",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.selectDB",
         "title": "Select Query",
-        "category": "ABAP FS"
+        "category": "INTELIA SAP AIP"
       },
       {
         "command": "abapfs.tableContents",
@@ -2381,6 +2385,7 @@
       {
         "command": "abapfs.deletefavourite",
         "title": "Delete favourite",
+        "category": "INTELIA SAP AIP",
         "icon": "$(trash)"
       },
       {
@@ -2394,13 +2399,13 @@
       {
         "command": "abapfs.visualizeDependencyGraph",
         "title": "Visualize Dependency Graph",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(graph)"
       },
       {
         "command": "abapfs.cleanCode",
         "title": "Clean ABAP Code with ABAP Cleaner",
-        "category": "ABAP FS",
+        "category": "INTELIA SAP AIP",
         "icon": "$(symbol-ruler)"
       },
       {

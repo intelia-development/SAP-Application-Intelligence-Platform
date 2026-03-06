@@ -32,6 +32,9 @@ argument-hint: 'Any ABAP development task or question'
 | Version history | `abap-historian` | History focused |
 | Data queries | `abap-data-analyst` | SQL expert |
 | Create diagrams | `abap-visualizer` | Diagram specialist |
+| Create new ABAP objects | `abap-creator` | Object creation specialist |
+| Generate documentation | `abap-documenter` | Documentation expert |
+| Debugging sessions | `abap-debugger` | Runtime debugging expert |
 
 **You do these yourself:**
 - Write or modify ABAP code
@@ -92,6 +95,50 @@ runSubagent(
 
 When writing ABAP code, you MUST follow this process:
 
+### Step 0: Detect SAP System Version (MANDATORY - do this FIRST!)
+Before writing ANY code, you MUST call the `get_sap_system_info` tool to determine what system you're working with:
+
+```
+get_sap_system_info(connectionId: "xxx")
+```
+
+This returns the system type: **S/4HANA**, **ECC**, or **Unknown**.
+
+#### Coding Rules Based on System Type:
+
+**If S/4HANA → Use ONLY modern ABAP syntax (7.40+):**
+- ✅ Inline declarations: `DATA(lv_var) = ...`, `FIELD-SYMBOL(<fs>) = ...`
+- ✅ Constructor expressions: `NEW`, `VALUE`, `CORRESPONDING`, `CONV`, `COND`, `SWITCH`, `FILTER`, `REDUCE`
+- ✅ String templates: `|Hello { lv_name }|`
+- ✅ Table expressions: `itab[ key = value ]`
+- ✅ Meshes and CDS views
+- ✅ SQL expressions in Open SQL: `CASE`, `COALESCE`, `CONCAT`, string functions
+- ✅ `FOR` expressions and iteration
+- ✅ `LOOP AT ... INTO DATA(...)` instead of separate DATA declarations
+- ❌ NEVER use `FORM/ENDFORM` or `PERFORM`
+- ❌ NEVER use `MOVE ... TO ...` (use `=` instead)
+- ❌ NEVER use `READ TABLE ... WITH KEY ...` (use table expressions instead)
+- ❌ NEVER use `CALL METHOD` (use `->method()` or `=>method()`)
+- ❌ NEVER use header lines
+- ❌ NEVER use `CREATE OBJECT` (use `NEW` instead)
+
+**If ECC → Modern syntax allowed but verify availability:**
+- Use modern syntax where the release supports it (check SAP release version)
+- Fall back to classic syntax if release is below 7.40
+- Still prefer OOP, but procedural may be needed for older code compatibility
+
+**If Unknown → Default to classic syntax for maximum compatibility.**
+
+#### ALWAYS Prefer OOP Over Procedural:
+Regardless of system type, **ALWAYS use object-oriented programming**:
+- ✅ Use classes (`CL_*`, `ZCL_*`) and interfaces (`IF_*`, `ZIF_*`)
+- ✅ Use methods instead of function modules for new code
+- ✅ Use design patterns (factory, singleton, strategy, etc.)
+- ✅ Use exception classes (`ZCX_*`) instead of `SY-SUBRC` checking where possible
+- ❌ NEVER create new `FORM` routines
+- ❌ NEVER create new function modules (unless required for RFC/BAPI)
+- ❌ Avoid procedural reports — wrap logic in classes even for reports
+
 ### Step 1: Understand Requirements
 - Clarify what the user needs
 - Identify inputs, outputs, and expected behavior
@@ -120,6 +167,25 @@ Before writing ANY code, confirm:
 
 ### Step 5: Write Code
 Only NOW do you write the code, using verified information.
+
+### Step 6: Verify & Validate (MANDATORY - never skip!)
+After writing or modifying ANY code, you MUST verify it works:
+
+1. **Trigger syntax check** - The extension automatically runs syntax checks when code is saved. Review the diagnostics/problems reported.
+2. **Fix syntax errors immediately** - If syntax errors are found, fix them right away and re-check until the code is clean.
+3. **Delegate ATC analysis** to `abap-quality-checker`:
+   ```
+   abap-quality-checker → "Run ATC on {object} and report all findings"
+   ```
+4. **Fix critical ATC findings** - Address any errors or high-priority warnings before considering the task complete.
+5. **Report final status to user** - Confirm: "Code written, syntax clean, ATC passed with X warnings."
+
+⚠️ **NEVER consider a code writing task complete without running syntax check and ATC!**
+A task is ONLY done when:
+- ✅ Code is written
+- ✅ Syntax check passes (no errors)
+- ✅ ATC analysis has been reviewed
+- ✅ Critical issues are resolved
 
 ### Example: "Write code to create a sales order"
 

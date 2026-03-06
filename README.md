@@ -1,6 +1,6 @@
-# ABAP FS 🚀
+# INTELIA: SAP-Application-Intelligence-Platform🚀
 
-- [ABAP FS 🚀](#abap-fs-)
+- [SAP-Application-Intelligence-Platform 🚀]
   - [AI-Powered ABAP Development in VS Code](#ai-powered-abap-development-in-vs-code)
   - [🎯 What Makes This Different?](#-what-makes-this-different)
   - [� Documentation](#-documentation)
@@ -30,7 +30,7 @@
 
 ## AI-Powered ABAP Development in VS Code
 
-ABAP FS is a VS Code extension that brings AI-powered ABAP development to Visual Studio Code. It provides comprehensive AI integration through GitHub Copilot's Language Model Tools API (with [MCP support](DOCUMENTATION.md#mcp-server-for-external-ai-tools) for Cursor, Claude Code, Windsurf, Claude Desktop, and other AI tools). 30+ specialized tools give your AI assistant deep SAP system awareness—searching objects, reading code, running tests, executing queries, and more.
+SAP Application Intelligence Platform is a VS Code extension that brings AI-powered ABAP development to Visual Studio Code. It provides comprehensive AI integration through GitHub Copilot's Language Model Tools API (with [MCP support](DOCUMENTATION.md#mcp-server-for-external-ai-tools) for Cursor, Claude Code, Windsurf, Claude Desktop, and other AI tools). 30+ specialized tools give your AI assistant deep SAP system awareness—searching objects, reading code, running tests, executing queries, and more.
 
 ## 🎯 What Makes This Different?
 
@@ -67,7 +67,7 @@ For comprehensive documentation covering all features in detail, see [DOCUMENTAT
 
 2. **Configure SAP system connections**
    - Press `Ctrl+Shift+P`
-   - Run: **ABAP FS: Connection Manager**
+   - Run: **INTELIA SAP AIP: Connection Manager**
    - Modern webview UI opens with comprehensive connection management:
      - **Add Connection** - Fill in system details (URL, client, username, language, SAP GUI settings)
      - **Import/Export** - Import connections from JSON or export for backup/sharing
@@ -78,7 +78,7 @@ For comprehensive documentation covering all features in detail, see [DOCUMENTAT
 
 3. **Connect to SAP systems**
    - Press `Ctrl+Shift+P`
-   - Run: **ABAP FS: Connect to an SAP system**
+   - Run: **INTELIA SAP AIP: Connect to an SAP system**
    - Select system and enter password if prompted
    - Wait for a minute for VSCode to connect to the system
    - Good to go
@@ -86,7 +86,7 @@ For comprehensive documentation covering all features in detail, see [DOCUMENTAT
 4. **Verify connection**
    - Check Activity Bar for "ABAP FS" icon
    - Expand views: Transports, Dumps, ATC Finds, Traces, abapGit
-   - Try: `Ctrl+Shift+P` → **ABAP FS: Search for object**
+   - Try: `Ctrl+Shift+P` → **INTELIA SAP AIP: Search for object**
 
 5. **Agents setup - Recommended for AI coding**
    - connect to an ABAP system
@@ -213,13 +213,13 @@ Copilot automatically uses these tools when you ask questions:
 
 Available via Command Palette (`Ctrl+Shift+P`):
 
-- ABAP FS: Connect to an ABAP system
-- ABAP FS: Search for object
-- ABAP FS: Create object
-- ABAP FS: Run ABAP Unit Tests
-- ABAP FS: Text Elements Manager
-- ABAP FS: Run SAP Transaction
-- ABAP FS: Configure ADT Feeds
+- INTELIA SAP AIP: Connect to an ABAP system
+- INTELIA SAP AIP: Search for object
+- INTELIA SAP AIP: Create object
+- INTELIA SAP AIP: Run ABAP Unit Tests
+- INTELIA SAP AIP: Text Elements Manager
+- INTELIA SAP AIP: Run SAP Transaction
+- INTELIA SAP AIP: Configure ADT Feeds
 - And many more commands...
 
 ## 🔒 For Organization Administrators
