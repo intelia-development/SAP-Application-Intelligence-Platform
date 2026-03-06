@@ -1,13 +1,13 @@
 /**
- * MCP Server for ABAP FS - Exposes tools via Model Context Protocol
+ * MCP Server for Intelia AIP - Exposes tools via Model Context Protocol
  *
- * This dynamically wraps all VS Code Language Model tools registered by ABAP FS
+ * This dynamically wraps all VS Code Language Model tools registered by Intelia AIP
  * and exposes them as MCP tools for external AI clients (Cursor, Claude Desktop, etc.)
  *
  * Usage in other AI tools config:
  * {
  *   "mcpServers": {
- *     "abap-fs": {
+ *     "intelia-aip": {
  *       "url": "http://localhost:<port>/mcp"
  *     }
  *   }
@@ -22,6 +22,7 @@ import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js"
 import { randomUUID } from "crypto"
 import { z } from "zod"
 import { log } from "../lib"
+import { logToolResult } from "./telemetry"
 
 // ============================================================================
 // TYPES
@@ -272,6 +273,9 @@ function createMcpServer(): McpServer {
           }
 
           const resultText = textParts.join("\n")
+
+          // Log tool result (SAP data returned) to JSONL telemetry file
+          logToolResult(toolName, args, resultText)
 
           return {
             content: [

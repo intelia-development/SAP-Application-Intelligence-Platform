@@ -25,6 +25,7 @@ argument-hint: 'Any ABAP development task or question'
 |------|-------------|-----|
 | Find/search for objects | `abap-discoverer` | Cheaper model, focused tools |
 | Read/extract code info | `abap-reader` | Saves your context window |
+| Complex/multi-object design | `abap-solution-architect` | SAP best-practice blueprint |
 | Code review | `abap-code-reviewer` | Expert review prompt |
 | Where-used/impact analysis | `abap-usage-analyzer` | Specialized analysis |
 | ATC/unit tests | `abap-quality-checker` | Quality focused |
@@ -57,6 +58,9 @@ runSubagent(
 
 ## Available Subagents (use these exact names)
 
+### Architecture & Design
+- **abap-solution-architect**: Create technical blueprints for complex tasks (MANDATORY before coding multi-object solutions)
+
 ### Discovery & Navigation
 - **abap-discoverer**: Find objects by name/pattern, identify object types
 - **abap-reader**: Extract specific info from code without returning full source
@@ -88,6 +92,43 @@ runSubagent(
 ❌ **WRONG approach (doing it yourself):**
 - Reading code yourself wastes your context window
 - Reviewing code yourself misses the expert prompts in abap-code-reviewer
+
+## ⚠️ MANDATORY: Architecture-First Process
+
+**For complex tasks, you MUST get a blueprint BEFORE writing any code.**
+
+A task is **complex** if it involves ANY of:
+- **2+ new ABAP objects** (report, classes, interfaces, tables, etc.)
+- A **new application or module**
+- **Significant refactoring** across multiple objects
+- **New interfaces or integration points** (RFC, OData, IDoc, etc.)
+- The user explicitly asks for **design, architecture, or blueprint**
+
+### When the task is complex:
+1. Call `abap-solution-architect` → Provide the full task description and any context gathered so far
+2. **Review the blueprint** — Confirm it makes sense before proceeding
+3. **Follow the blueprint** — Use it as your implementation plan for Steps 1-6 below
+4. The blueprint defines which objects to create, in what order, and with what interfaces
+
+### When the task is simple (skip the architect):
+- Single-method changes, bug fixes, small enhancements to existing objects
+- The task only touches 1 object and doesn't need new interfaces
+
+### Example: Complex task with architect delegation
+
+✅ **CORRECT approach:**
+1. Call `abap-solution-architect` → "Design a reusable sales order validation framework with extensible rules"
+2. Receive blueprint with: interfaces, classes, exception classes, data model, implementation order
+3. Call `abap-discoverer` / `abap-reader` → Research existing objects referenced in the blueprint
+4. Follow the blueprint's implementation order to write code
+5. Call `abap-quality-checker` → Verify quality
+
+❌ **WRONG approach:**
+- Jumping straight into writing a god class without design
+- Creating procedural code instead of the OOP design the architect would recommend
+- Skipping the architect for a task that creates 3+ new objects
+
+---
 
 ## ⚠️ MANDATORY: Code Writing Process
 
@@ -144,8 +185,8 @@ Regardless of system type, **ALWAYS use object-oriented programming**:
 - Identify inputs, outputs, and expected behavior
 
 ### Step 2: Plan & Design
-- Break down the solution into components
-- Identify what objects you'll need (classes, FMs, DDL, tables, etc.)
+- **If complex task**: Use the blueprint from `abap-solution-architect` (see Architecture-First Process above)
+- **If simple task**: Break down the solution into components and identify what objects you'll need
 
 ### Step 3: Research (MANDATORY - delegate in parallel!)
 Call subagents to research ALL objects you plan to use:
@@ -219,3 +260,4 @@ This saves time and is more efficient.
 3. **ALWAYS pass agentName when calling runSubagent**
 4. **ALWAYS research before writing code** - Never guess object names or parameters
 5. **Call subagents in parallel** when their work is independent
+6. **ALWAYS call `abap-solution-architect` first** for complex/multi-object tasks - Architecture before implementation!
