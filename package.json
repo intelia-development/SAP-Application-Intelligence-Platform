@@ -2,7 +2,7 @@
   "name": "intelia-sap-application-intelligence-platform",
   "displayName": "INTELIA: SAP Application Intelligence Platform",
   "description": "INTELIA is an AI-powered platform that provides deep insights into SAP systems, enabling users to analyze, optimize, and automate their SAP applications. With features like ABAP code analysis, performance monitoring, and intelligent automation, INTELIA helps organizations unlock the full potential of their SAP investments while reducing costs and improving efficiency.",
-  "version": "1.0.0",
+  "version": "2.0.7",
   "publisher": "intelia-development",
   "publishConfig": {
     "access": "restricted",
@@ -2246,6 +2246,26 @@
         "tags": [
           "abap-fs"
         ]
+      },
+      {
+        "name": "abap_activate",
+        "displayName": "Activate ABAP objects - equivalent of compiling",
+        "canBeReferencedInPrompt": true,
+        "toolReferenceName": "abap_activate",
+        "modelDescription": "Activate ABAP objects in the given URL. Activation is similar to compiling in other programming languages. It checks the code for syntax errors and makes it executable in the ABAP runtime environment. Returns a list of activated objects and any activation errors encountered.",
+        "when": "resourceScheme == adt",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "Url of the object to activate. Usually the current file's URL."
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
       }
     ],
     "commands": [
@@ -2793,6 +2813,11 @@
         "when": "editorTextFocus && resourceScheme == adt"
       },
       {
+        "command": "abapfs.unittest",
+        "key": "ctrl+shift+f11",
+        "when": "editorTextFocus && resourceScheme == adt"
+      },
+      {
         "command": "abapfs.runInGui",
         "key": "Ctrl+Shift+F5",
         "when": "editorTextFocus && resourceScheme == adt"
@@ -2826,6 +2851,10 @@
         "command": "abapfs.cleanCode",
         "key": "ctrl+shift+alt+f",
         "when": "editorTextFocus && resourceScheme == adt && editorLangId == abap && abapfs.cleanerAvailable"
+      },
+      {
+        "command": "abapfs.search",
+        "key": "ctrl+alt+;"
       }
     ],
     "menus": {
@@ -3702,6 +3731,11 @@
             }
           }
         },
+        "abapfs.sapGui.useIntegratedBrowser": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Use VS Code's integrated browser instead of the embedded WebView for SAP GUI. Enable this if the embedded WebView shows a blank page (e.g. due to SAP clickjacking frame protection)."
+        },
         "abapfs.copilot.professionalNotifications": {
           "type": "boolean",
           "default": false,
@@ -3824,9 +3858,23 @@
         },
         "abapfs.subagents.models": {
           "type": "object",
-          "default": {},
+          "default": {
+            "abap-discoverer": "",
+            "abap-reader": "",
+            "abap-creator": "",
+            "abap-visualizer": "",
+            "abap-documenter": "",
+            "abap-usage-analyzer": "",
+            "abap-quality-checker": "",
+            "abap-historian": "",
+            "abap-debugger": "",
+            "abap-troubleshooter": "",
+            "abap-data-analyst": "",
+            "abap-orchestrator": "",
+            "abap-code-reviewer": ""
+          },
           "scope": "resource",
-          "description": "Model selection per agent. Keys are agent IDs (e.g., 'abap-discoverer'), values are model IDs. Configure via 'ABAP FS: Configure Subagents' command.",
+          "description": "Model selection per agent. Keys are agent IDs (e.g., 'abap-discoverer'), values are model IDs. Ask Copilot to configure this.",
           "additionalProperties": {
             "type": "string"
           }

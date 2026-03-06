@@ -3,6 +3,7 @@ import { funWindow as window } from "../../services/funMessenger"
 import { ADTClient } from "abap-adt-api"
 import { log } from "../../lib"
 import { RemoteManager } from "../../config"
+import { runInSapGui } from "../../adt/sapgui/sapgui"
 
 /**
  * Manages embedded SAP GUI webview panels for ABAP execution
@@ -186,8 +187,7 @@ export class SapGuiPanel {
       this.showProgress("Loading SAP GUI for HTML...")
 
       // Reuse existing SAP GUI infrastructure
-      const { runInSapGui } = await import("../../adt/sapgui/sapgui")
-      const { RemoteManager } = await import("../../config")
+      // runInSapGui and RemoteManager are statically imported above
 
       const originalConfig = RemoteManager.get().byId(this._connectionId)
       if (!originalConfig) {
@@ -238,6 +238,17 @@ export class SapGuiPanel {
    * Uses the same authentication cookies that ADT client already has
    */
   public loadDirectWebGuiUrl(webguiUrl: string) {
+    // Check if user prefers VS Code's integrated browser over embedded webview
+    const useIntegratedBrowser = vscode.workspace.getConfiguration("abapfs.sapGui").get<boolean>("useIntegratedBrowser", false)
+    if (useIntegratedBrowser) {
+      vscode.commands.executeCommand("simpleBrowser.api.open", webguiUrl, {
+        viewColumn: vscode.ViewColumn.Beside,
+        preserveFocus: false
+      })
+      this.dispose()
+      return
+    }
+
     // Set flag to prevent duplicate executions
     this._authenticatedUrlLoaded = true
 
@@ -279,13 +290,12 @@ export class SapGuiPanel {
                     width="100%" 
                     height="calc(100vh - 60px)"
                     frameborder="0"
-                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-downloads allow-modals"
+                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-downloads allow-modals allow-presentation"
                     title="SAP WebGUI - ${this._objectName}"
                     onload="handleWebGuiLoad()"
                     onerror="handleWebGuiError()"
                     style="border: 1px solid var(--vscode-panel-border); background: white;"
                     allowfullscreen
-                    allow="credentials"
                 ></iframe>
             </div>
             <script>
@@ -381,7 +391,7 @@ export class SapGuiPanel {
                     width="100%" 
                     height="calc(100vh - 80px)"
                     frameborder="0"
-                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-downloads"
+                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-downloads allow-modals allow-presentation"
                     title="SAP GUI for HTML - ${this._objectName}"
                     onload="handleSapGuiLoad()"
                     onerror="handleSapGuiError()"
@@ -501,7 +511,6 @@ export class SapGuiPanel {
       this.showProgress("Refreshing authentication...")
 
       // Get fresh configuration and regenerate authenticated URL
-      const { RemoteManager } = await import("../../config")
       const config = RemoteManager.get().byId(this._connectionId)
       if (!config) {
         throw new Error("Connection configuration not found")
@@ -636,7 +645,7 @@ export class SapGuiPanel {
                     width="100%" 
                     height="calc(100vh - 60px)"
                     frameborder="0"
-                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation allow-modals allow-presentation"
                     title="SAP GUI for HTML - ${this._objectName}"
                 ></iframe>
             </div>
