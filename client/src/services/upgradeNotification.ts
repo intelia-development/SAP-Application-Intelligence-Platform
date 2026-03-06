@@ -5,7 +5,7 @@
 import * as vscode from "vscode"
 
 const MARKETPLACE_URL =
-  "https://intelia.si"
+  "https://marketplace.visualstudio.com/items?itemName=murbani.vscode-abap-remote-fs"
 
 const STATE_LAST_VERSION = "abapfs.lastVersion"
 const STATE_UPGRADE_DISMISSED = "abapfs.upgradeStatusBarDismissed"
@@ -36,8 +36,9 @@ export function checkUpgradeNotification(context: vscode.ExtensionContext): void
 function showUpgradeNotification(): void {
   vscode.window
     .showInformationMessage(
-      "🚀 Intelia AIP ! " +
+      "🚀 ABAP Remote FS has been upgraded to v2 with powerful AI features! " +
         "Simply ask GitHub Copilot (in Agent mode) to tell you about them.",
+      "Open Marketplace Page"
     )
     .then(action => {
       if (action === "Open Marketplace Page") {
@@ -55,12 +56,12 @@ function showBlinkingStatusBar(context: vscode.ExtensionContext): void {
   // Create status bar item
   const item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1000)
   item.command = "abapfs.openUpgradeMarketplace"
-  item.tooltip = "Intelia AIP!"
+  item.tooltip = "ABAP Remote FS v2 — Click to learn about new AI features or just ask Copilot!"
   context.subscriptions.push(item)
 
   // Blink between two states
-  const textOn = "$(rocket) Intelia AIP — New AI Features!"
-  const textOff = "$(sparkle) Intelia AIP — New AI Features!"
+  const textOn = "$(rocket) ABAP FS v2 — New AI Features!"
+  const textOff = "$(sparkle) ABAP FS v2 — New AI Features!"
   let on = true
 
   item.text = textOn

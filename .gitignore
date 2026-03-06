@@ -27,5 +27,3 @@ server/src/**/*.js
 server/src/**/*.js.map
 modules/*/src/**/*.js
 modules/*/src/**/*.js.map
-
-.github/agents

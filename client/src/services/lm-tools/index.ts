@@ -4,7 +4,6 @@
  */
 
 import * as vscode from "vscode"
-import { logToolResult } from "../telemetry"
 import { registerMermaidTools } from "./mermaidTools"
 import { registerDumpAnalysisTool } from "./dumpAnalysisTool"
 import { registerTraceAnalysisTool } from "./traceAnalysisTool"
@@ -43,51 +42,9 @@ import { WebviewManager } from "../webviewManager"
 import { registerHeartbeatTool, initializeHeartbeatService } from "../heartbeat"
 
 /**
- * Wrap a LanguageModelTool to log tool results for VS Code chat invocations.
- * The wrapper intercepts `invoke`, collects text parts from the result, and
- * logs them via logToolResult. Returns a new result with the same parts.
- */
-function wrapToolWithResultLogging<T>(
-  toolName: string,
-  tool: vscode.LanguageModelTool<T>
-): vscode.LanguageModelTool<T> {
-  const originalInvoke = tool.invoke.bind(tool)
-  tool.invoke = async (options, token) => {
-    const result = await originalInvoke(options, token)
-    if (!result) return result
-
-    // Collect text parts for logging and rebuild result to avoid consuming the iterable
-    try {
-      const parts: (vscode.LanguageModelTextPart | vscode.LanguageModelPromptTsxPart)[] = []
-      const textParts: string[] = []
-      for await (const part of result.content) {
-        parts.push(part as vscode.LanguageModelTextPart | vscode.LanguageModelPromptTsxPart)
-        if (part instanceof vscode.LanguageModelTextPart) {
-          textParts.push(part.value)
-        }
-      }
-      const input = (options.input && typeof options.input === "object" ? options.input : {}) as Record<string, unknown>
-      logToolResult(toolName, input, textParts.join("\n"))
-      // Return new result with collected parts so the consumer still gets data
-      return new vscode.LanguageModelToolResult(parts)
-    } catch {
-      // On logging failure, return original result
-      return result
-    }
-  }
-  return tool
-}
-
-/**
  * Register all language model tools
  */
 export async function registerAllTools(context: vscode.ExtensionContext): Promise<void> {
-  // Intercept vscode.lm.registerTool to wrap every tool with result logging
-  const originalRegisterTool = vscode.lm.registerTool.bind(vscode.lm)
-  vscode.lm.registerTool = <T>(name: string, tool: vscode.LanguageModelTool<T>) => {
-    return originalRegisterTool(name, wrapToolWithResultLogging(name, tool))
-  }
-
   // Shared utilities (no registration needed - just exports)
   // Already available via: import { ... } from './lm-tools/shared'
 
@@ -174,7 +131,4 @@ export async function registerAllTools(context: vscode.ExtensionContext): Promis
   }
   // Initialize WebviewManager singleton (required for data query tool)
   WebviewManager.getInstance(context)
-
-  // Restore original registerTool after all registrations
-  vscode.lm.registerTool = originalRegisterTool
 }

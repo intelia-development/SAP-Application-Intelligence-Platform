@@ -68,15 +68,6 @@ export const AGENT_REGISTRY: AgentMeta[] = [
     templateFile: "abap-code-reviewer.agent.md"
   },
   {
-    id: "abap-solution-architect",
-    name: "Solution Architect",
-    description: "Blueprint complex solutions with SAP best practices and OOP design",
-    tier: 3,
-    defaultModel: "",
-    tools: null,
-    templateFile: "abap-solution-architect.agent.md"
-  },
-  {
     id: "abap-discoverer",
     name: "Discoverer",
     description: "Find ABAP objects by name pattern, identify types",
