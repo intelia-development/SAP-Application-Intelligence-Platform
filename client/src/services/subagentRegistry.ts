@@ -55,7 +55,17 @@ export const AGENT_REGISTRY: AgentMeta[] = [
     description: "Master coordinator - routes tasks to specialized agents, writes all code",
     tier: 3,
     defaultModel: "",
-    tools: null,
+    tools: [
+      "abap-search", "abap-lines", "abap-search-lines", "abap-info", "abap-batch",
+      "abap-uri", "abap-create", "abap-object-url", "abap-workspace-uri",
+      "mermaid-create", "mermaid-validate", "mermaid-docs", "mermaid-detect",
+      "test-docs", "sap-data", "abap-sql-syntax", "atc-analysis", "atc-decorations",
+      "text-elements-manager", "abap-open", "abap-test", "test-include",
+      "transport-requests", "debug-session", "debug-breakpoint", "debug-step",
+      "debug-variable", "debug-stack", "debug-status", "abap-dumps", "abap-traces",
+      "abap-where-used", "sap-system-info", "connected-systems", "version-history",
+      "subagents", "abapfs-docs", "heartbeat"
+    ],
     templateFile: "abap-orchestrator.agent.md"
   },
   {
@@ -64,8 +74,28 @@ export const AGENT_REGISTRY: AgentMeta[] = [
     description: "Deep expert code review - security, performance, best practices",
     tier: 3,
     defaultModel: "",
-    tools: null,
+    tools: [
+      "abap-search", "abap-lines", "abap-search-lines", "abap-info", "abap-batch",
+      "abap-uri", "abap-object-url", "abap-workspace-uri", "abap-where-used",
+      "atc-analysis", "atc-decorations", "abap-test", "test-docs",
+      "sap-system-info", "connected-systems", "version-history", "abapfs-docs"
+    ],
     templateFile: "abap-code-reviewer.agent.md"
+  },
+  {
+    id: "abap-solution-architect",
+    name: "Solution Architect",
+    description: "Blueprint complex solutions with SAP best practices and OOP design",
+    tier: 3,
+    defaultModel: "",
+    tools: [
+      "abap-search", "abap-lines", "abap-search-lines", "abap-info", "abap-batch",
+      "abap-uri", "abap-object-url", "abap-workspace-uri", "abap-where-used",
+      "mermaid-create", "mermaid-validate", "mermaid-docs", "mermaid-detect",
+      "sap-data", "abap-sql-syntax", "sap-system-info", "connected-systems",
+      "version-history", "abapfs-docs", "subagents"
+    ],
+    templateFile: "abap-solution-architect.agent.md"
   },
   {
     id: "abap-discoverer",
@@ -104,7 +134,6 @@ export const AGENT_REGISTRY: AgentMeta[] = [
       "atc-analysis",
       "atc-decorations",
       "abap-test",
-      "abap_activate",
       "test-include",
       "abap-info"
     ],
@@ -148,8 +177,7 @@ export const AGENT_REGISTRY: AgentMeta[] = [
       "abap-traces",
       "abap-lines",
       "abap-info",
-      "abap-search-lines",
-      "abap_activate"
+      "abap-search-lines"
     ],
     templateFile: "abap-troubleshooter.agent.md"
   },
@@ -168,7 +196,7 @@ export const AGENT_REGISTRY: AgentMeta[] = [
     description: "Create new ABAP objects (blank shells)",
     tier: 1,
     defaultModel: "",
-    tools: ["abap-create", "connected-systems", "abap-search", "abap_activate", "abap-test"],
+    tools: ["abap-create", "connected-systems", "abap-search", "abap-test"],
     templateFile: "abap-creator.agent.md"
   },
   {

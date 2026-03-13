@@ -122,10 +122,11 @@ Example configuration:
 {
   "action": "configure",
   "configurations": [
-    {"agentId": "abap-orchestrator", "model": "Claude Sonnet 4"},
-    {"agentId": "abap-code-reviewer", "model": "Claude Sonnet 4"},
+    {"agentId": "abap-orchestrator", "model": "Claude Sonnet 4.6"},
+    {"agentId": "abap-code-reviewer", "model": "Claude Sonnet 4.6"},
+    {"agentId": "abap-solution-architect", "model": "Claude Sonnet 4.6"},
     {"agentId": "abap-discoverer", "model": "Claude Haiku 4.5"},
-    ... (all 13 agents must be configured)
+    ... (all 14 agents must be configured)
   ]
 }`)
         ])
@@ -169,7 +170,7 @@ The agents are now available for use. They will help optimize your ABAP developm
 Tier structure:
 - Tier 1 (Fast/Cheap): discoverer, reader, creator, visualizer, documenter
 - Tier 2 (Analysis): usage-analyzer, quality-checker, historian, debugger, troubleshooter, data-analyst
-- Tier 3 (Premium): orchestrator, code-reviewer
+- Tier 3 (Premium): orchestrator, code-reviewer, solution-architect
 
 Use "list_agents" action to see details, or "configure" to change models.`)
     ])

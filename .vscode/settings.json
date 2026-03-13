@@ -8,5 +8,22 @@
   // "javascript.format.enable": false,
   "typescript.locale": "en",
   "gitlens.codeLens.enabled": false,
-  "editor.fontLigatures": true
+  "editor.fontLigatures": true,
+  "abapfs.subagents.enabled": true,
+  "abapfs.subagents.models": {
+    "abap-discoverer": "Claude Haiku 4.5",
+    "abap-reader": "Claude Haiku 4.5",
+    "abap-creator": "Claude Haiku 4.5",
+    "abap-visualizer": "Claude Haiku 4.5",
+    "abap-documenter": "Claude Haiku 4.5",
+    "abap-usage-analyzer": "GPT-4o",
+    "abap-quality-checker": "GPT-4o",
+    "abap-historian": "GPT-4o",
+    "abap-debugger": "GPT-4o",
+    "abap-troubleshooter": "GPT-4o",
+    "abap-data-analyst": "GPT-4o",
+    "abap-orchestrator": "Claude Sonnet 4",
+    "abap-code-reviewer": "Claude Sonnet 4",
+    "abap-solution-architect": "Claude Sonnet 4"
+  }
 }
